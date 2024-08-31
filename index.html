@@ -1,192 +1,336 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Permintaan Data</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+            font-family: 'Lato', sans-serif;
+            font-size: 18px;
+        }
 
-   <!--=============== REMIXICONS ===============-->
-   <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+        body {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f4fbfe;
+            padding: 20px;
+        }
 
-   <!--=============== CSS ===============-->
-   <link rel="stylesheet" href="assets/css/styles.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+        .container {
+            width: 100%;
+            max-width: 700px; /* Changed to accommodate two columns */
+            padding: 30px;
+            border: 1px solid #eeeeee;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
+        }
 
-   <title>Formulir Registrasi - Buku Tamu PST BPS Kabupaten Bulungan</title>
+        h4 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-family: 'Dosis', sans-serif;
+            font-weight: bold;
+            color: #0f394c;
+            text-align: center;
+            word-wrap: break-word;
+        }
 
-   <!-- Favicons -->
-   <link href="assets/img/bps.png" rel="icon">
-   <link href="assets/img/bps.png" rel="apple-touch-icon">
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #d0ecf9;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+            input:focus, select:focus {
+                outline: none;
+                border-color: #0f394c;
+                box-shadow: 0 0 5px rgba(15, 57, 76, 0.25);
+            }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f394c;
+        }
+
+        #submit {
+            border: none;
+            background-color: #0f394c;
+            color: white;
+            padding: 10px;
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+            #submit:hover {
+                background-color: #0d2c3e;
+            }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-group.col-md-6 {
+            flex: 0 0 48%;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-group.col-md-6 {
+                flex: 0 0 100%;
+            }
+
+            input, select {
+                padding: 8px;
+            }
+
+            #submit {
+                padding: 8px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-   <div class="register">
-      <img src="assets/img/register-bg.JPG" alt="register image" class="register__img">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 mx-auto shadow border bg-white p-4 rounded">
+                <form id="register-form" class="register__form">
+                    <h2 class="register__title">Form Penilaian Pegawai</h2>
+                    <div class="register__content">
+                        <!-- Bulan -->
+                        <div class="register__box">
+                            <i class="ri-calendar-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="bulan" name="bulan">
+                                    <option value="" disabled selected></option>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                                <label for="bulan" class="register__label">Bulan</label>
+                            </div>
+                        </div>
 
-      <form id="register-form" class="register__form">
-         <h2 class="register__title">Buku Tamu PST BPS Bulungan</h2>
-         <div class="register__content">
-            <div class="register__box">
-               <i class="ri-user-3-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="text" required class="register__input" id="nama_lengkap" name="nama_lengkap" placeholder=" ">
-                  <label for="nama_lengkap" class="register__label">Nama Lengkap</label>
-               </div>
+                        <!-- Tahun -->
+                        <div class="register__box">
+                            <i class="ri-calendar-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="tahun" name="tahun">
+                                    <option value="" disabled selected></option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                                <label for="tahun" class="register__label">Tahun</label>
+                            </div>
+                        </div>
+
+                        <!-- Nama Pegawai -->
+                        <div class="register__box">
+                            <i class="ri-user-3-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="nama_pegawai" name="nama_pegawai">
+                                    <option value="" disabled selected></option>
+                                    <option value="Aang Saputra SST., M.Si">Aang Saputra SST., M.Si</option>
+                                    <option value="T. DI. Oria Salam, SST, M.Si">T. DI. Oria Salam, SST, M.Si</option>
+                                    <option value="Darwin Dani">Darwin Dani</option>
+                                    <option value="Elda Elnovita, S.Si. M. Si">Elda Elnovita, S.Si. M. Si</option>
+                                    <option value="Adelin Namira, SST">Adelin Namira, SST</option>
+                                    <option value="Nurdiana, A.Md">Nurdiana, A.Md</option>
+                                    <option value="Riswan Amin">Riswan Amin</option>
+                                    <option value="M.Rifqi Jundullah, S.Tr. Stat">M.Rifqi Jundullah, S.Tr. Stat</option>
+                                    <option value="Anisa Fransiska, A.Md">Anisa Fransiska, A.Md</option>
+                                    <option value="Emayani">Emayani</option>
+                                    <option value="Juhrin, S.E">Juhrin, S.E</option>
+                                    <option value="Kamil Aulia, SST">Kamil Aulia, SST</option>
+                                    <option value="Siti Armanisa, S.Tr.Stat.">Siti Armanisa, S.Tr.Stat.</option>
+                                    <option value="Muhammad Rizqi, S.Tr.Stat">Muhammad Rizqi, S.Tr.Stat</option>
+                                    <option value="Yama Risnaldi Putra, S.Tr.Stat">Yama Risnaldi Putra, S.Tr.Stat</option>
+                                    <option value=""></option>
+
+                                </select>
+                                <label for="nama_pegawai" class="register__label">Nama Pegawai</label>
+                            </div>
+                        </div>
+
+                        <!-- Nilai SKP -->
+                        <div class="register__box">
+                            <i class="ri-file-list-line register__icon"></i>
+                            <div class="register__box-input">
+                                <input type="number" step="0.1" required class="register__input" id="nilai_skp" name="nilai_skp" placeholder=" ">
+                                <label for="nilai_skp" class="register__label">Nilai SKP</label>
+                            </div>
+                        </div>
+
+                        <!-- Pengumpulan SKP -->
+                        <div class="register__box">
+                            <i class="ri-calendar-check-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="pengumpulan_skp" name="pengumpulan_skp">
+                                    <option value="" disabled selected></option>
+                                    <option value="1>Dikumpulkan sebelum tanggal 1</option>
+                                    <option value="0">Dikumpulkan setelah tanggal 1</option>
+                                </select>
+                                <label for="pengumpulan_skp" class="register__label">Pengumpulan SKP</label>
+                            </div>
+                        </div>
+
+                        <!-- Briefing Pagi -->
+                        <div class="register__box">
+                            <i class="ri-alarm-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="briefing_pagi" name="briefing_pagi">
+                                    <option value="" disabled selected></option>
+                                    <option value="2">Absen < 3</option>
+                                    <option value="1">Absen >= 3</option>
+                                </select>
+                                <label for="briefing_pagi" class="register__label">Briefing Pagi</label>
+                            </div>
+                        </div>
+
+                        <!-- Prestasi -->
+                        <div class="register__box">
+                            <i class="ri-trophy-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="prestasi" name="prestasi">
+                                    <option value="" disabled selected></option>
+                                    <option value="0">Pegawai belum memiliki prestasi</option>
+                                    <option value="1">Prestasi pegawai dinilai baik oleh kepala instansi</option>
+                                    <option value="2">Prestasi pegawai dinilai sangat baik oleh kepala instansi</option>
+                                </select>
+                                <label for="prestasi" class="register__label">Prestasi</label>
+                            </div>
+                        </div>
+
+                        <!-- Disiplin Pegawai -->
+                        <div class="register__box">
+                            <i class="ri-check-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="disiplin_pegawai" name="disiplin_pegawai">
+                                    <option value="" disabled selected></option>
+                                    <option value="0"</option>
+                                    <option value="-1"</option>
+                                    <option value="-2"</option>
+                                    <option value="-3"</option>
+                                    <option value="-4"</option>
+                                    <option value="-5"</option>
+
+                                </select>
+                                <label for="disiplin_pegawai" class="register__label">Disiplin Pegawai</label>
+                            </div>
+                        </div>
+
+                        <!-- Monitoring Pekerjaan -->
+                        <div class="register__box">
+                            <i class="ri-bar-chart-line register__icon"></i>
+                            <div class="register__box-input">
+                                <select required class="register__input" id="monitoring_pekerjaan" name="monitoring_pekerjaan">
+                                    <option value="" disabled selected></option>
+                                    <option value="-5">Belum dikerjakan</option>
+                                    <option value="-5">Peringkat 1 Terendah</option>
+                                    <option value="-4">Peringkat 2 Terendah</option>
+                                    <option value="-3">Peringkat 3 Terendah</option>
+                                    <option value="-2">Peringkat 4 Terendah</option>
+                                    <option value="-1">Peringkat 5 Terendah</option>
+                                </select>
+                                <label for="monitoring_pekerjaan" class="register__label">Monitoring Pekerjaan</label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="register__button">Submit</button>
+                </form>
             </div>
+        </div>
+    </div>
+    <script>
+    function preventFormSubmit() {
+      var forms = document.querySelectorAll('form');
+      for (var i = 0; i < forms.length; i++) {
+        forms[i].addEventListener('submit', function (event) {
+          event.preventDefault();
+        });
+      }
+    }
 
-            <div class="register__box">
-               <i class="ri-mail-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="email" class="register__input" id="email" name="email" placeholder=" ">
-                  <label for="email" class="register__label">Email</label>
-               </div>
-            </div>
+    window.addEventListener('load', preventFormSubmit);
 
-            <div class="register__box">
-               <i class="ri-map-pin-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="text" required class="register__input" id="alamat" name="alamat" placeholder=" ">
-                  <label for="alamat" class="register__label">Alamat</label>
-               </div>
-            </div>
+    var myfile = {}, file, reader = new FileReader();
 
-            <div class="register__box">
-               <i class="ri-phone-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="text" class="register__input" id="no_hp" name="no_hp" placeholder=" ">
-                  <label for="no_hp" class="register__label">No. HP</label>
-               </div>
-            </div>
+    reader.onloadend = function(e) {
+      myfile.data = e.target.result;
+      myfile.name = file.name;
+      console.log(myfile);
+    };
 
-            <div class="register__box">
-               <i class="ri-calendar-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="number" required class="register__input" id="umur" name="umur" placeholder=" ">
-                  <label for="umur" class="register__label">Umur</label>
-               </div>
-            </div>
+    $('#file').change(function() {
+      file = $('#file')[0].files[0];
+      reader.readAsDataURL(file);
+    });
 
-            <div class="register__box">
-               <i class="ri-building-line register__icon"></i>
-               <div class="register__box-input">
-                  <input type="text" required class="register__input" id="asal_instansi" name="asal_instansi" placeholder=" ">
-                  <label for="asal_instansi" class="register__label">Asal/Instansi</label>
-               </div>
-            </div>
-
-            <div class="register__box">
-               <i class="ri-gender-line register__icon"></i>
-               <div class="register__box-input">
-                  <select required class="register__input" id="jenis_kelamin" name="jenis_kelamin">
-                     <option value="" disabled selected></option>
-                     <option value="Laki-laki">Laki-laki</option>
-                     <option value="Perempuan">Perempuan</option>
-                  </select>
-                  <label for="jenis_kelamin" class="register__label">Jenis Kelamin</label>
-               </div>
-            </div>
-
-            <div class="register__box">
-               <i class="ri-book-line register__icon"></i>
-               <div class="register__box-input">
-                  <select required class="register__input" id="pendidikan" name="pendidikan">
-                     <option value="" disabled selected></option>
-                     <option value="SD">SD atau setingkatnya</option>
-                     <option value="SMP">SMP atau setingkatnya</option>
-                     <option value="SMA">SMA atau setingkatnya</option>
-                     <option value="D1/D2/D3">D1/D2/D3</option>
-                     <option value="D4/S1">D4/S1</option>
-                     <option value="S2">S2</option>
-                     <option value="S3">S3</option>
-                  </select>
-                  <label for="pendidikan" class="register__label">Pendidikan</label>
-               </div>
-            </div>
-
-            <div class="register__box">
-               <i class="ri-briefcase-line register__icon"></i>
-               <div class="register__box-input">
-                  <select required class="register__input" id="pekerjaan" name="pekerjaan">
-                     <option value="" disabled selected></option>
-                     <option value="Guru/Dosen">Guru/Dosen</option>
-                     <option value="Karyawan BUMN">Karyawan BUMN</option>
-                     <option value="Karyawan Swasta">Karyawan Swasta</option>
-                     <option value="Mahasiswa">Pelajar/Mahasiswa</option>
-                     <option value="ASN">PNS/PPPK</option>
-                     <option value="Polri/TNI">Polri/TNI</option>
-                     <option value="Wiraswasta">Wiraswasta</option>
-                  </select>
-                  <label for="pekerjaan" class="register__label">Pekerjaan</label>
-               </div>
-            </div>
-
-            <div class="register__box">
-               <i class="ri-question-line register__icon"></i>
-               <div class="register__box-input">
-                  <select required class="register__input" id="keperluan" name="keperluan">
-                     <option value="" disabled selected></option>
-                     <option value="Perpustakaan Tercetak">Perpustakaan Tercetak</option>
-                     <option value="Perpustakaan Digital">Perpustakaan Digital</option>
-                     <option value="Konsultasi Statistik">Konsultasi Statistik</option>
-                     <option value="Data Mikro">Pembelian Produk Statistik (Data Mikro/Peta Wilayah Kerja Statistik BPS)</option>
-                     <option value="Rekomendasi Kegiatan Statistik">Rekomendasi Kegiatan Statistik</option>
-                     <option value="Permintaan Data">Permintaan Data</option>
-                  </select>
-                  <label for="keperluan" class="register__label">Keperluan</label>
-               </div>
-            </div>
-           
-         </div>
-
-         <button type="submit" class="register__button">Submit</button>
-      </form>
-   </div>
-   
-   <!--=============== MAIN JS ===============-->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <script src="assets/js/validasi.js"></script>
-   <script>
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbzpNDz4C6u2d3MY8GVK3C7BqbIsDSv5XZppkolSTtTXzEbe3HtsF5MAz8ROPPeIe2A/exec'
-      const form = document.querySelector('#register-form')
-      const btn = document.querySelector('.register__button')
   
-      form.addEventListener('submit', e => {
-        e.preventDefault()
-        if (validateForm()) {
-            btn.disabled = true
-            btn.innerHTML = "Loading..."
-  
-            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
-                .then(response => response.json())
-                .then(response => {
-                    if (response.result === 'success') {
-                        form.reset(); // Membersihkan isian form
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: 'Data berhasil dikirim!'
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Gagal',
-                            text: 'Terjadi kesalahan: ' + response.message
-                        });
-                    }
-                    btn.disabled = false
-                    btn.innerHTML = "Submit"
-                })
-                .catch(error => {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Gagal',
-                        text: 'Terjadi kesalahan: ' + error.message
-                    });
-                    btn.disabled = false
-                    btn.innerHTML = "Submit"
-                })
-        } else {
-            // Form is not valid, display error messages or take other actions
-        }
-      })
-  </script>
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      if (!validateForm()) return;
+
+      var formdata = $('#myForm').serializeArray();
+      if (file) {
+        formdata.push({
+          name: 'myfile',
+          value: myfile
+        });
+      }
+
+      google.script.run.withSuccessHandler(success).processForm(formdata);
+    }
+
+    function success() {
+      document.getElementById("myForm").reset();
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'File berhasil disimpan!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+    }
+    </script>
 </body>
 </html>
